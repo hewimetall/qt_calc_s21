@@ -6,11 +6,23 @@ enum {
 };
 
 typedef struct {
-    int manth;
+    double manth;
     double summ;
     double procent;
     short check;
-}data_form;
+}data_form_part2;
+
+typedef struct {
+    double summ;
+    double manth;
+    double procent;
+    double nalog;
+    double period;
+    double cap_procent;
+    double* list_add;
+    double* list_add_simple;
+    short check;
+}data_form_part3;
 
 typedef struct {
     double pay_math;
@@ -19,8 +31,7 @@ typedef struct {
     char* err;
 }data_result;
 
-data_result get_credit(data_form data);
-data_result get_debit(data_form data);
-
+data_result get_credit(data_form_part2 data);
+data_result get_debit(data_form_part3 data);
 
 #endif //QT_CALC_CORE_H

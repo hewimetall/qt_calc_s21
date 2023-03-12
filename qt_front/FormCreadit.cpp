@@ -39,8 +39,8 @@ void FormCreadit::init_form() {
     addRow(check);
 }
 
-data_form FormCreadit::clean_data() {
-    data_form data = {0};
+data_form_part2 FormCreadit::clean_data() {
+    data_form_part2 data = {0};
     data.check = radio->checkedId();// 0 or 1
     data.procent = procent->text().toDouble();
     data.summ = all_summ->text().toDouble();

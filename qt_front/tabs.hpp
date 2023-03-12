@@ -9,6 +9,8 @@
 #include <QTabWidget>
 #include "FormCalc.hpp"
 #include "FormCreadit.hpp"
+#include "FormDebit.hpp"
+
 class Tabs : public QTabWidget {
 Q_OBJECT
 
@@ -17,6 +19,7 @@ public:
 private:
     FormCalc *view_calc;
     TabsViewCreadit *view_creadit;
+    TabsViewDebit *view_debit;
 };
 
 

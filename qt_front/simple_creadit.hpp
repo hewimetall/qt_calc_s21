@@ -10,7 +10,7 @@ extern "C" {
 
 class CreditApi {
 public:
-    data_result process_credit(data_form data);
-    data_result process_debit(data_form data);
+    data_result process_credit(data_form_part2 data);
+    data_result process_debit(data_form_part3 data);
 };
 #endif //QT_CALC_SIMPLE_CREADIT_H

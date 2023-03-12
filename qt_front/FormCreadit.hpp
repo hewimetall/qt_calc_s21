@@ -23,7 +23,7 @@ class FormCreadit: public QFormLayout {
 Q_OBJECT
 public:
     FormCreadit();
-    data_form clean_data();
+    data_form_part2 clean_data();
 private:
     QLineEdit* date;
     QLineEdit* all_summ;

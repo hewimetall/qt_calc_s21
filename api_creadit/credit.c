@@ -4,7 +4,7 @@
 
 #include "headers/api_credit_core.h"
 
-data_result get_credit(data_form data){
+data_result get_credit(data_form_part2 data){
     data_result res = {0};
     return res;
 }
