@@ -6,7 +6,7 @@ stack_double init_stack_double(int* err) {
   stack_double init_st;
   init_st.len = 0;
   init_st.max_len = 100;
-  init_st.start = malloc(sizeof(double) * 100);
+  init_st.start = calloc(1,sizeof(double) * 100);
   if (!init_st.start) *err = 1;
   return init_st;
 }

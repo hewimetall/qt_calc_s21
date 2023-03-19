@@ -6,7 +6,7 @@ enum {
 };
 
 typedef struct {
-    double manth;
+    double period;
     double summ;
     double procent;
     short check;

@@ -35,7 +35,7 @@ FormCreadit::FormCreadit() {
 void FormCreadit::init_form() {
     addRow("Общая сумма кредита:", this->all_summ);
     addRow("Процентная ставка:", procent);
-    addRow("Срок(в месяцах):", this->date);
+    addRow("Срок(в годах):", this->date);
     addRow(check);
 }
 
@@ -44,7 +44,7 @@ data_form_part2 FormCreadit::clean_data() {
     data.check = radio->checkedId();// 0 or 1
     data.procent = procent->text().toDouble();
     data.summ = all_summ->text().toDouble();
-    data.manth = date->text().toDouble();
+    data.period = date->text().toDouble();
     return data;
 }
 FormResult::FormResult() {

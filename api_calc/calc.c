@@ -1,4 +1,5 @@
 #include "headers/api_calc.h"
+#include "headers/api_validation.h"
 
 
 stack_double process_op(stack_double stack, char c, int* err) {
@@ -14,6 +15,11 @@ stack_double process_op(stack_double stack, char c, int* err) {
       stack = pop_d(stack, &d2);
       stack = append_d(stack, d1 + d2, err);
       break;
+    case '-':
+          stack = pop_d(stack, &d1);
+          stack = pop_d(stack, &d2);
+          stack = append_d(stack, d2 - d1, err);
+    break;
     case '/':
       stack = pop_d(stack, &d1);
       stack = pop_d(stack, &d2);
@@ -68,6 +74,18 @@ stack_double process_op(stack_double stack, char c, int* err) {
       stack = pop_d(stack, &d1);
       stack = append_d(stack, log(d1), err);
       break;
+    case 'w':
+          stack = pop_d(stack, &d1);
+          stack = append_d(stack, acos(d1), err);
+          break;
+    case 'e':
+          stack = pop_d(stack, &d1);
+          stack = append_d(stack, asin(d1), err);
+          break;
+    case 'r':
+          stack = pop_d(stack, &d1);
+          stack = append_d(stack, atan(d1), err);
+          break;
   }
   return stack;
 }
@@ -147,4 +165,14 @@ stack_char to_pn(string s_str, int* err) {
     }
     delete_c(stac_oper);
     return stac_out;
+}
+
+double process_calc(string inp, double x) {
+    string ss = {0};
+    int check = 0;
+    cast_string(inp);
+    stack_char sc = to_pn(inp, &check);
+    ss.len = sc.len;
+    ss.str = sc.start;
+    return calc_polish(ss, x);
 }

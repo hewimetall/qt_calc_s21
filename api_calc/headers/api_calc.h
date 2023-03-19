@@ -15,4 +15,6 @@
 stack_double process_op(stack_double stack, char c, int* err);
 double calc_polish(string rpm, double x);
 stack_char to_pn(string s_str, int* err);
+double process_calc(string inp, double x);
+
 #endif

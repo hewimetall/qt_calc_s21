@@ -37,6 +37,7 @@ int check_symbol(char* const string) {
   for (int i = 0; string[i] != '\0'; i++) {
     if ((string[i] < 48 || string[i] > 57) && string[i] != 120 &&
         string[i] != 46 && string[i] != 42 && string[i] != 43 &&
+        string[i] != 'w' && string[i] != 'e' && string[i] != 'r' &&
         string[i] != 45 && string[i] != 47 && string[i] != 94) {
       flag = 0;
     }
@@ -65,8 +66,8 @@ void replace_substring(char* string, char* sub_str, char* sub_str_rep) {
 
 int check_validation(string str) {
   int flag = 1;
-  struct op oper[6] = {{"sqrt", "q"}, {"cos", "c"}, {"sin", "s"},
-                             {"ctg", "g"},  {"tan", "a"}, {"ln", "l"}};
+
+  op *oper = get_oper();
   char* test = (char*)malloc(1000);
   remove_space(str);
   strcpy(test, str.str);
@@ -76,7 +77,7 @@ int check_validation(string str) {
   } else {
     flag = 0;
   }
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < 9; i++) {
     replace_substring(test, oper[i].name, "");
   }
   if (!check_symbol(test)) {
@@ -86,17 +87,9 @@ int check_validation(string str) {
   return flag;
 }
 
-int cast_string(string ss) {
-  struct op oper[6] = {{"sqrt", "q"}, {"cos", "c"}, {"sin", "s"},
-                             {"ctg", "g"},  {"tan", "a"}, {"ln", "l"}};
-  int flag = 1;
-  printf("Input string: %s\n", ss.str);
-  if (check_validation(ss)) {
-      for (int i = 0; i < 6; i++) {
+void cast_string(string ss) {
+  op *oper = get_oper();
+  for (int i = 0; i < 9; i++) {
         replace_substring(ss.str, oper[i].name, oper[i].polperf);
-      }
-    } else {
-      flag = 0;
   }
-  return flag;
 }
