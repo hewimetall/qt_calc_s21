@@ -8,7 +8,6 @@ set(CMAKE_AUTOUIC ON)
 
 file(GLOB_RECURSE SOURCES_FRONT RELATIVE ${CMAKE_SOURCE_DIR} "qt_front/*.cpp")
 file(GLOB_RECURSE SOURCES_CALC RELATIVE ${CMAKE_SOURCE_DIR} "api_calc/*.c")
-file(GLOB_RECURSE SOURCES_CREDIT RELATIVE ${CMAKE_SOURCE_DIR} "api_creadit/*.c")
 
 include_directories(qt_front/headers)
 include_directories(api_calc/headers)
@@ -32,5 +31,4 @@ target_link_libraries(qt_front
         Qt::Widgets
         Qt::Charts
         api_calc
-        api_creadit
         )
