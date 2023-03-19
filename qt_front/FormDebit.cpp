@@ -4,6 +4,24 @@
 
 #include "FormDebit.hpp"
 
+QGroupBox *FormDebit::init_box(QButtonGroup *radio) {
+    auto groupBox = new QGroupBox("Тип");
+    auto *radio1 = new QRadioButton("В конце срока", groupBox);
+    auto *radio2 = new QRadioButton("раз в месяц", groupBox);
+    auto *radio3 = new QRadioButton("раз в год", groupBox);
+    radio->addButton(radio1, 0);
+    radio->addButton(radio2, 1);
+    radio->addButton(radio3, 2);
+    radio1->setChecked(true);
+    auto lay = new QVBoxLayout;
+    lay->addWidget(radio1);
+    lay->addWidget(radio2);
+    lay->addWidget(radio3);
+    groupBox->setAlignment(4);
+    groupBox->setLayout(lay);
+    return groupBox;
+}
+
 FormDebit::FormDebit() {
     summ = new QLineEdit();
     summ->setValidator(new QDoubleValidator);
@@ -13,11 +31,9 @@ FormDebit::FormDebit() {
     procent->setValidator(new QDoubleValidator);
     nalog = new QLineEdit();
     nalog->setValidator(new QDoubleValidator);
-    period = new QLineEdit();
-    period->setValidator(new QDoubleValidator);
-    cap_procent = new QLineEdit();
-    cap_procent->setValidator(new QDoubleValidator);
-
+    radio = new QButtonGroup;
+    period = init_box(radio);
+    cap_procent = new QCheckBox();
     init_form();
 }
 
@@ -38,8 +54,8 @@ data_form_part3 FormDebit::clean_data() {
     data.manth = manth->text().toDouble();
     data.procent = procent->text().toDouble();
     data.nalog = nalog->text().toDouble();
-    data.period = period->text().toDouble();
-    data.cap_procent = cap_procent->text().toDouble();
+    data.period = (double) radio->checkedId();
+    data.cap_procent = (double) cap_procent->isChecked();
     return data;
 }
 

@@ -17,13 +17,13 @@
 #include <QDateEdit>
 #include <QList>
 #include "simple_creadit.hpp"
+#include <QCheckBox>
 
 
 class FormDebit : public QFormLayout {
 Q_OBJECT
 public:
     FormDebit();
-
     data_form_part3 clean_data();
 
 private:
@@ -31,11 +31,13 @@ private:
     QLineEdit *manth;
     QLineEdit *procent;
     QLineEdit *nalog;
-    QLineEdit *period;
-    QLineEdit *cap_procent;
+    QGroupBox *period;
+    QCheckBox *cap_procent;
+    QButtonGroup *radio;
 //    double* list_add;
 //    double* list_add_simple;
 protected:
+    QGroupBox *init_box(QButtonGroup *radio);
     void init_form();
 };
 

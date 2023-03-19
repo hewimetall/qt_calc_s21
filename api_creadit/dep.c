@@ -4,52 +4,83 @@
 
 
 #include "headers/api_credit_core.h"
-
-data_result get_debit(data_form_part3 data) {
+/**
+ * @brief: Годовая капитолизация.
+ * */
+data_result __yerl(data_form_part3 data) {
+    double  S = data.summ;
+    double preb = 0., preb_nalog = 0.;
+    int yerl = (int) data.manth;
     data_result res = {0};
+    for (int i = 0; i < yerl; ++i) {
+        preb += S*data.procent;
+        preb_nalog += preb * data.nalog;
+        preb-= preb * data.nalog;
+        if(data.cap_procent)
+        S+=preb, preb = 0;
+    }
+    res.summ_all = S + preb;
+    res.over_cred = preb_nalog;
+    res.pay_math = res.summ_all - data.summ;
     return res;
 }
 
-//int deposit_calc(data_form_part3 *data) {
-//    // S=(P*I*j:K):100
-//    int bug = 0;
-//    double inter;
-//    data->interest = 0;
-//    data->output = 0;
-//    data->total_tax = 0;
-//    data->input += (data->add_list[0]+data->add_list[1]+data->add_list[3]);
-//    data->input -= (data->subtract_list[0]+data->subtract_list[1]+data->subtract_list[3]);
-//    if (data->input < 0) {
-//        bug = 1;
-//    } else {
-//        if (!data->capitalization) {
-//            for (int k = 0; k < data->period; k++) {
-//                inter = data->input*data->perc*30.417/365/100;
-//                data->total_tax += inter*data->tax/100;
-//                data->interest += inter;
-//            }
-//            data->output = data->input;
-//        } else {
-//            int cap;
-//            if (data->frequency == 0)
-//                cap = 1;    // ежемесячная капитализация
-//            else if (data->frequency == 1)
-//                cap = 3;    // ежеквартальная капитализация
-//            else if (data->frequency == 2)
-//                cap = 12;   // ежегодная капитализация
-//            double p = 0;
-//            for (int k = 0; k < data->period; k++) {
-//                if (!(k%cap))
-//                    p = data->interest;
-//                inter = ((data->input + p)*data->perc*30.417/365/100);
-//                data->total_tax += inter*data->tax/100;
-//                inter -= inter * data->tax/100;
-//                data->interest += inter;
-//            }
-//            data->output = data->input + data->interest;
-//            data->interest += data->total_tax;
-//        }
-//    }
-//    return bug;
-//}
+/**
+ * @brief: В конце срока.
+ * */
+data_result __end(data_form_part3 data) {
+    double  S = data.summ;
+    data_result res = {0};
+    double preb = S * data.procent;
+    double preb_nalog = preb * data.nalog;
+    preb -= preb_nalog;
+    S += preb;
+    res.summ_all = S;
+    res.over_cred = preb_nalog;
+    res.pay_math = S - data.summ;
+    return res;
+}
 
+/**
+ * @brief: В конце месяца.
+ * */
+data_result __month(data_form_part3 data) {
+    double  S = data.summ;
+    double  S_proc = 0;
+    double preb = 0;
+    double preb_nalog = 0;
+    int yerl = (int) data.manth;
+    data_result res = {0};
+    for (int i = 0; i < yerl*12; ++i) {
+        preb = S * (data.procent/12.);
+        preb -= preb * data.nalog;
+        preb_nalog +=preb * data.nalog;
+        S_proc +=preb;
+        if(data.cap_procent)
+            S += preb;
+
+    }
+    res.summ_all = S + S_proc;
+    res.over_cred = preb_nalog;
+    res.pay_math = S_proc;
+    return res;
+}
+
+
+data_result get_debit(data_form_part3 data) {
+    data_result res = {0};
+    data.procent = data.procent/100.0;
+    data.nalog = data.nalog/100.0;
+
+    switch ((int)data.period) {
+        case 1:
+            res = __month(data);
+            break;
+        case 2:
+            res = __yerl(data);
+            break;
+        default:
+            res = __end(data);
+    }
+    return res;
+}
