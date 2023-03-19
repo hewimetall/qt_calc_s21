@@ -12,24 +12,23 @@ double annuity(double k, double p) {
 
 data_result __annuity(data_form_part2 data) {
     data_result res = {0};
-    data.procent /=  12. * 100.;
-    data.period *=12.;
+    data.procent /= 12. * 100.;
+    data.period *= 12.;
 
     double a = data.summ * annuity(data.period, data.procent);
     double s = data.summ;
     double over = 0;
-    while (s >0) {
-        double ds =  a - s*data.procent;
-        over += a-ds;
+    while (s > 0) {
+        double ds = a - s * data.procent;
+        over += a - ds;
         s -= ds;
-
-        printf("%.2f-ds:%.2lf\n", s,ds);
     }
     res.pay_math = a;
-    res.over_cred =over;
+    res.over_cred = over;
     res.summ_all = over + data.summ;
     return res;
 }
+
 data_result __debit(data_form_part2 data) {
     data_result res = {0};
     double mp_cnt = data.period * 12.;
@@ -45,9 +44,10 @@ data_result __debit(data_form_part2 data) {
     res.over_cred = res.summ_all - data.summ;
     return res;
 }
-data_result get_credit(data_form_part2 data){
-    data_result  res = {0};
-    if(data.check) res = __debit(data);
+
+data_result get_credit(data_form_part2 data) {
+    data_result res = {0};
+    if (data.check) res = __debit(data);
     else res = __annuity(data);
     return res;
 }

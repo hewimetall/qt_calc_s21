@@ -23,11 +23,13 @@ void FormCalc::init_ui() {
     out = new QLabel("Out:");
 
 }
+
 void FormCalc::bind() {
     connect(b1, SIGNAL(clicked()), this, SLOT(text()));
     connect(b2, SIGNAL(clicked()), this, SLOT(clean()));
     connect(b3, SIGNAL(clicked()), this, SLOT(print()));
 }
+
 void FormCalc::setup_windows() {
     root->addLayout(gridLayoutI);
     root->addLayout(gridLayoutT);
@@ -53,12 +55,13 @@ void FormCalc::clean() {
     auto q = QString("Out:\t");
     out->setText(q);
 }
+
 void FormCalc::print() {
     auto qch = new QChart;
 
     QLineSeries *series = new QLineSeries();
     this->text();
-    for (double i = -3.14; i < 3.14; i+=0.25) {
+    for (double i = -3.14; i < 3.14; i += 0.25) {
         series->append(i, sc->process(i).toDouble());
     }
     qch->legend()->hide();
@@ -67,7 +70,7 @@ void FormCalc::print() {
     qch->createDefaultAxes();
     auto chartView = new QChartView(qch);
     chartView->setRenderHint(QPainter::Antialiasing);
-    chartView->setFixedSize(500,500);
+    chartView->setFixedSize(500, 500);
     chartView->showMaximized();
 
 }

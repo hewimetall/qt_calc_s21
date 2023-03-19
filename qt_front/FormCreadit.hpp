@@ -19,42 +19,48 @@
 #include "simple_creadit.hpp"
 
 
-class FormCreadit: public QFormLayout {
+class FormCreadit : public QFormLayout {
 Q_OBJECT
 public:
     FormCreadit();
+
     data_form_part2 clean_data();
+
 private:
-    QLineEdit* date;
-    QLineEdit* all_summ;
-    QLineEdit* procent;
-    QGroupBox* check;
-    QButtonGroup* radio;
+    QLineEdit *date;
+    QLineEdit *all_summ;
+    QLineEdit *procent;
+    QGroupBox *check;
+    QButtonGroup *radio;
 protected:
     void init_form();
 };
 
-class FormResult: public QFormLayout {
+class FormResult : public QFormLayout {
 Q_OBJECT
 public:
     FormResult();
-    QLabel* err;
-    QLabel* pay_math;
-    QLabel* over_cred;
-    QLabel* summ_all;
+
+    QLabel *err;
+    QLabel *pay_math;
+    QLabel *over_cred;
+    QLabel *summ_all;
 };
 
-class TabsViewCreadit: public QWidget {
+class TabsViewCreadit : public QWidget {
 Q_OBJECT
 public:
     TabsViewCreadit();
+
 public slots:
+
     void show_result();
+
 private:
     FormCreadit *fp;
-    QVBoxLayout* root;
-    FormResult* result;
-    CreditApi* c_api;
+    QVBoxLayout *root;
+    FormResult *result;
+    CreditApi *c_api;
 };
 
 #endif //QT_CALC_FORMCREADIT_H

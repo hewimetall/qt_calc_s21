@@ -16,6 +16,7 @@ Q_OBJECT
 
 public:
     Tabs();
+
 private:
     FormCalc *view_calc;
     TabsViewCreadit *view_creadit;

@@ -1,15 +1,15 @@
 #include "headers/api_helper.h"
 
-op * get_oper() {
+op *get_oper() {
     static struct op oper[9] = {
-            {"acos","w"}, {"asin", "e"}, {"atan", "r"},
+            {"acos", "w"}, {"asin", "e"}, {"atan", "r"},
             {"sqrt", "q"}, {"cos", "c"}, {"sin", "s"},
-                                {"ctg", "g"},  {"tan", "a"}, {"ln", "l"}
+            {"ctg", "g"}, {"tan", "a"}, {"ln", "l"}
     };
     return oper;
 }
 
-priory* init_priory() {
+priory *init_priory() {
     static priory priority[] = {{.c = '+', .p = 1},
                                 {.c = '-', .p = 1},
                                 {.c = '*', .p = 2},
@@ -33,7 +33,7 @@ priory* init_priory() {
 }
 
 int check_prior(char c) {
-    static priory* priority;
+    static priory *priority;
     int prior = -2;
     if (priority == 0) {
         priority = init_priory();

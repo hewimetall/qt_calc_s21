@@ -5,7 +5,7 @@
 
 #include "headers/api_credit_core.h"
 
-data_result get_debit(data_form_part3 data){
+data_result get_debit(data_form_part3 data) {
     data_result res = {0};
     return res;
 }

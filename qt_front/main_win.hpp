@@ -8,12 +8,13 @@
 #include "FormCalc.hpp"
 #include "tabs.hpp"
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
 Q_OBJECT
 public:
     MainWindow();
+
 private:
     Tabs *tabs;
 };
+
 #endif // MAINWINDOW_H

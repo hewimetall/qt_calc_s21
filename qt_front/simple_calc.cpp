@@ -19,13 +19,13 @@ string SimpleCalc::convert_to_string() {
 
 
 int SimpleCalc::valid() {
-    string  ss = convert_to_string();
+    string ss = convert_to_string();
     if (ss.len == 0) check = 1;
     else check = !check_validation(ss);
     return check;
 }
 
 QString SimpleCalc::process(double x) {
-    if(check){return QString("Err");}
-    return QString::number(process_calc(convert_to_string(),x));
+    if (check) { return QString("Err"); }
+    return QString::number(process_calc(convert_to_string(), x));
 }

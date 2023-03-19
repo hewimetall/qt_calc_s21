@@ -1,5 +1,6 @@
 #ifndef WRITER_GRID_H
 #define WRITER_GRID_H
+
 #include <QGridLayout>
 #include <QPushButton>
 #include <QTabWidget>
@@ -11,16 +12,19 @@
 
 #include "simple_calc.hpp"
 
-class FormCalc : public QWidget
-{
-    Q_OBJECT
+class FormCalc : public QWidget {
+Q_OBJECT
 public:
     FormCalc();
+
     QHBoxLayout *gridLayoutT;
     QVBoxLayout *gridLayoutI;
 public slots:
+
     void text();
+
     void clean();
+
     void print();
 
 private:
@@ -34,8 +38,11 @@ private:
     QVBoxLayout *root;
 protected:
     void init_form();
+
     void bind();
+
     void setup_windows();
+
     void init_ui();
 
 };

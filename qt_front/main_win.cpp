@@ -3,6 +3,7 @@
 //
 
 #include "main_win.hpp"
+
 MainWindow::MainWindow() {
     tabs = new Tabs;
     setCentralWidget(tabs);

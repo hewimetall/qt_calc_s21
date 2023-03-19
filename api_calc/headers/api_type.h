@@ -11,12 +11,12 @@ typedef struct {
 
 typedef struct {
     int len;
-    char* str;
+    char *str;
 } string;
 
 typedef struct {
     char c;
-    char* str;
+    char *str;
 } rule;
 
 typedef struct {
@@ -27,12 +27,12 @@ typedef struct {
 typedef struct {
     int len;
     int max_len;
-    double* start;
+    double *start;
 } stack_double;
 
 typedef struct op {
-char* name;
-char* polperf;
-}op;
+    char *name;
+    char *polperf;
+} op;
 
 #endif //QT_CALC_TYPE_H

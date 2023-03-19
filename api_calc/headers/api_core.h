@@ -4,6 +4,7 @@
 
 #ifndef QT_CALC_API_CORE_H
 #define QT_CALC_API_CORE_H
+
 #include "api_type.h"
 #include "api_calc.h"
 #include "api_validation.h"

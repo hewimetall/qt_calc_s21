@@ -19,45 +19,51 @@
 #include "simple_creadit.hpp"
 
 
-class FormDebit: public QFormLayout {
+class FormDebit : public QFormLayout {
 Q_OBJECT
 public:
     FormDebit();
+
     data_form_part3 clean_data();
+
 private:
-    QLineEdit* summ;
-    QLineEdit* manth;
-    QLineEdit* procent;
-    QLineEdit* nalog;
-    QLineEdit* period;
-    QLineEdit* cap_procent;
+    QLineEdit *summ;
+    QLineEdit *manth;
+    QLineEdit *procent;
+    QLineEdit *nalog;
+    QLineEdit *period;
+    QLineEdit *cap_procent;
 //    double* list_add;
 //    double* list_add_simple;
 protected:
     void init_form();
 };
 
-class FormResult2: public QFormLayout {
+class FormResult2 : public QFormLayout {
 Q_OBJECT
 public:
     FormResult2();
-    QLabel* err;
-    QLabel* procent;
-    QLabel* summ_nalog;
-    QLabel* summ_all;
+
+    QLabel *err;
+    QLabel *procent;
+    QLabel *summ_nalog;
+    QLabel *summ_all;
 };
 
-class TabsViewDebit: public QWidget {
+class TabsViewDebit : public QWidget {
 Q_OBJECT
 public:
     TabsViewDebit();
+
 public slots:
+
     void show_result();
+
 private:
     FormDebit *fp;
-    QVBoxLayout* root;
-    FormResult2* result;
-    CreditApi* c_api;
+    QVBoxLayout *root;
+    FormResult2 *result;
+    CreditApi *c_api;
 };
 
 #endif //QT_CALC_FORMDEBIT_H
