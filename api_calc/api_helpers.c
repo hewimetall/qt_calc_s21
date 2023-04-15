@@ -1,4 +1,5 @@
 #include "headers/api_helper.h"
+#define MAX_PRIORITY 4
 
 op *get_oper() {
     static struct op oper[9] = {

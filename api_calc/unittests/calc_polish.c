@@ -1,7 +1,7 @@
 //
 // Created by xx on 3/20/23.
 //
-#include "s21_test.h"
+#include "test.h"
 
 START_TEST(test_process_calc_default)
 {
@@ -10,7 +10,7 @@ START_TEST(test_process_calc_default)
             .str = "1+2"
     };
     double result = process_calc(ss, 0);
-    ck_assert_double_eq(result, 3);
+    ck_assert_double_eq(result, 3.);
 }
 END_TEST
 
@@ -24,7 +24,35 @@ START_TEST(test_process_calc)
     double result = process_calc(inp, x);
 
     // проверяем результат
-    ck_assert_double_eq(result, 4);
+    ck_assert_double_eq(result, 4.);
+}
+END_TEST
+
+START_TEST(test_process_calc_)
+{
+    // создаем входные данные
+    string inp = {5, "2+-2"};
+    double x = 0;
+
+    // запускаем функцию, которую тестируем
+    double result = process_calc(inp, x);
+
+    // проверяем результат
+    ck_assert_double_eq(result, 0.);
+}
+END_TEST
+
+START_TEST(test_process_calc__)
+{
+    // создаем входные данные
+    string inp = {7, "2+(-2)"};
+    double x = 0;
+
+    // запускаем функцию, которую тестируем
+    double result = process_calc(inp, x);
+
+    // проверяем результат
+    ck_assert_double_eq(result, 0.);
 }
 END_TEST
 
@@ -53,6 +81,8 @@ Suite* test_process_calc_suite(void)
     TCase* tc_core = tcase_create("Core");
     tcase_add_test(tc_core, test_process_calc_default);
     tcase_add_test(tc_core, test_process_calc);
+    tcase_add_test(tc_core, test_process_calc_);
+    tcase_add_test(tc_core, test_process_calc__);
     tcase_add_test(tc_core, test_process_calc_with_x);
     suite_add_tcase(suite, tc_core);
 

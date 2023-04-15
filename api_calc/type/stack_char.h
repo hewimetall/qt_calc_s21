@@ -11,7 +11,7 @@ typedef struct {
 
 stack_char init_stack_char(int *err);
 
-void delete_c(stack_char stack);
+stack_char delete_c(stack_char stack);
 
 stack_char append_c(stack_char stack, char data, int *err);
 

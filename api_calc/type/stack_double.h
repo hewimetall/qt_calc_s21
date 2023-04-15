@@ -5,7 +5,7 @@
 
 stack_double init_stack_double(int *err);
 
-void delete_d(stack_double stack);
+stack_double delete_d(stack_double stack);
 
 stack_double append_d(stack_double stack, double data, int *err);
 

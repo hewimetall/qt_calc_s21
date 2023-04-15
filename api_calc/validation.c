@@ -10,7 +10,6 @@ void remove_space(string s_string) {
             j++;
         }
     dest[j] = '\0';
-    strcpy(string, dest);
 }
 
 int check_bracket(char *const string) {

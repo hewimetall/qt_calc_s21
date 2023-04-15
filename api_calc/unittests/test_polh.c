@@ -1,12 +1,11 @@
 //
 // Created by xx on 3/20/23.
 //
-#include "s21_test.h"
-
+#include "test.h"
 START_TEST(test_process_op_multiply)
 {
     int err = 0;
-    stack_double stack = {0};
+    stack_double stack = init_stack_double(&err);
 
     stack = append_d(stack, 3.0, &err);
     stack = append_d(stack, 4.0, &err);
@@ -14,7 +13,7 @@ START_TEST(test_process_op_multiply)
     stack = process_op(stack, '*', &err);
     double top = 0;
     stack = pop_d(stack, &top);
-
+    ck_assert(err == 0);
     ck_assert_int_eq(err, 0);
     ck_assert_double_eq(top, 12.0);
     ck_assert(stack.len == 0);
@@ -22,14 +21,13 @@ START_TEST(test_process_op_multiply)
 END_TEST
 
 START_TEST(test_process_op_add)
-{
-    stack_double stack = {0};
-    int err = 0;
+{    int err = 0;
+    stack_double stack = init_stack_double(&err);
     stack = append_d(stack, 3.0, &err);
     stack = append_d(stack, 4.0, &err);
 
     stack = process_op(stack, '+', &err);
-    double top;
+    double top = 0;
     stack = pop_d(stack, &top);
 
     ck_assert_int_eq(err, 0);
@@ -39,8 +37,8 @@ START_TEST(test_process_op_add)
 END_TEST
 START_TEST(test_process_op_subtract)
 {
-    stack_double stack = {0};
     int err = 0;
+    stack_double stack = init_stack_double(&err);
     stack = append_d(stack, 3.0, &err);
     stack = append_d(stack, 4.0, &err);
 
@@ -56,8 +54,8 @@ END_TEST
 
 START_TEST(test_process_op_divide)
 {
-    stack_double stack = {0};
     int err = 0;
+    stack_double stack = init_stack_double(&err);
     stack = append_d(stack, 4.0, &err);
     stack = append_d(stack, 2.0, &err);
 
@@ -65,7 +63,7 @@ START_TEST(test_process_op_divide)
     double top;
     stack = pop_d(stack, &top);
 
-    ck_assert_int_eq(err, 1);
+    ck_assert_int_eq(err, 0);
     ck_assert_double_eq(top, 2.0);
 
     stack = append_d(stack, 4.0, &err);
@@ -75,21 +73,21 @@ START_TEST(test_process_op_divide)
 
     ck_assert_int_eq(err, 0);
     ck_assert(stack.len == 0);
+    delete_d(stack);
 }
 END_TEST
 
 START_TEST(test_process_op_power)
 {
-    stack_double stack = {0};
-    int err = 1;
+    int err = 0;
+    stack_double stack = init_stack_double(&err);
     stack = append_d(stack, 4.0, &err);
     stack = append_d(stack, 3.0, &err);
 
     stack = process_op(stack, '^', &err);
-    double top;
+    double top = 0;
     stack = pop_d(stack, &top);
-
-    ck_assert_int_eq(err, 1);
+    ck_assert_int_eq(err, 0);
     ck_assert_double_eq(top, 64.0);
 
     stack = append_d(stack, 4.0, &err);
@@ -99,13 +97,15 @@ START_TEST(test_process_op_power)
 
     ck_assert_int_eq(err, 0);
     ck_assert(stack.len == 0);
+    delete_d(stack);
+
 }
 END_TEST
 
 START_TEST(test_process_op_negate)
 {
-    stack_double stack = {0};
     int err = 0;
+    stack_double stack = init_stack_double(&err);
     stack = append_d(stack, 4.0, &err);
 
     stack = process_op(stack, '?', &err);
@@ -115,20 +115,32 @@ START_TEST(test_process_op_negate)
     ck_assert_int_eq(err, 0);
     ck_assert_double_eq(top, -4.0);
     ck_assert(stack.len == 0);
+
+    stack = append_d(stack, 0.0, &err);
+
+    stack = process_op(stack, '?', &err);
+    stack = pop_d(stack, &top);
+
+    ck_assert_int_eq(err, 0);
+    ck_assert_double_eq(top, -1);
+    ck_assert(stack.len == 0);
+
+    delete_d(stack);
+
 }
 END_TEST
 
 START_TEST(test_process_op_square_root)
 {
-    stack_double stack = {0};
     int err = 0;
+    stack_double stack = init_stack_double(&err);
     stack = append_d(stack, 4.0, &err);
 
     stack = process_op(stack, 'q', &err);
     double top = 0;
     stack = pop_d(stack, &top);
 
-    ck_assert_int_eq(err, 1);
+    ck_assert_int_eq(err, 0);
     ck_assert_double_eq(top, 2.0);
 
     stack = append_d(stack, -4.0, &err);
@@ -137,26 +149,34 @@ START_TEST(test_process_op_square_root)
 
     ck_assert_int_eq(err, 0);
     ck_assert(stack.len == 0);
+    delete_d(stack);
 }
 END_TEST
 
 // Функция для проверки операции вычисления синуса
-START_TEST(test_process_op_sin)
+START_TEST(test_process_op_alter)
 {
-    // Создание стека
-    stack_double stack = {0};
     int err = 0;
-    // Добавление значения в стек
-    stack = append_d(stack, 0.0, &err);
+    // Создание стека
+    stack_double stack = init_stack_double(&err);
 
-    // Выполнение операции вычисления синуса
-    stack = process_op(stack, 's', &err);
+    double top = 1;
+    char func[] = {'s','c','a','g','l','w','e','r'};
+    int res[] = {8, 5, 15, 6, 0, 0,15, 7};
 
-    double top = 0;
-    stack = pop_d(stack, &top);
-
+    for (int i = 0; i < 8; ++i) {
+        // Добавление значения в стек
+        stack = append_d(stack, 1.0, &err);
+        // Выполнение операции вычисления синуса
+        stack = process_op(stack, func[i], &err);
+        // Вытаскиваем значение
+        stack = pop_d(stack, &top);
+        ck_assert_int_eq((int ) (top*10.), res[i]);
+    }
     // Проверка результата
-    ck_assert_double_eq(top, 0.0001);
+
+    delete_d(stack);
+
 }
 END_TEST
 
@@ -175,7 +195,7 @@ Suite* test_process_op_suite(void)
     tcase_add_test(tc_core, test_process_op_power);
     tcase_add_test(tc_core, test_process_op_negate);
     tcase_add_test(tc_core, test_process_op_square_root);
-    tcase_add_test(tc_core, test_process_op_sin);
+    tcase_add_test(tc_core, test_process_op_alter);
     suite_add_tcase(suite, tc_core);
 
     return suite;

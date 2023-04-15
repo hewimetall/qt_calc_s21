@@ -3,7 +3,6 @@
 
 #include "api_type.h"
 
-#define MAX_PRIORITY 4
 
 priory *init_priory();
 
