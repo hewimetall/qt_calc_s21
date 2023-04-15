@@ -49,7 +49,7 @@ void FormDebit::init_form() {
 }
 
 data_form_part3 FormDebit::clean_data() {
-    data_form_part3 data = {0};
+    data_form_part3 data = {0,0,0,0,0,0,0,0,0};
     data.summ = summ->text().toDouble();
     data.manth = manth->text().toDouble();
     data.procent = procent->text().toDouble();
